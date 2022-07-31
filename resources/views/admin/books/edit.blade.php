@@ -18,17 +18,18 @@
                 </div>
                 <div class="form-group">
                     <label>Hình sách</label>
-                    <input type="file" name="book_thumb" class="form-control">
+                    <input type="file" name="book_thumb" value="{{ $books->book_thumb }}" class="form-control">
                     <img src="{{URL::to('storage/app/public/uploads-book/'.$books->book_thumb) }}" height="100" width="100">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleSelectGender"> Tác giả </label>
-                    <select class="form-control" name="author_id">
+                    <select class="form-control" name="author_id[]" multiple>
                         @foreach($authors as $author)
-                        <option value="{{ $author->author_id }}"
-                            {{ $books->author_id ==  $author->author_id ? 'selected' : ''}}>
-                            {{ $author->author_name }}</option>
+                        <?php if ($books->book_id ==  $author->book_id) { ?>
+                            <option value="{{ $author->author_id }}" disabled="disabled">
+                                {{ $author->author_name }}</option>
+                        <?php } ?>
                         @endforeach
                     </select>
                 </div>

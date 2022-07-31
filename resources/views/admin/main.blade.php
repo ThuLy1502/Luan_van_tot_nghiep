@@ -240,9 +240,10 @@
 
     <!-- CKEditor -->
     <script src="{{URL('public/ckeditor/ckeditor.js')}}"></script>
+
     <script>
-        CKEDITOR.replace('content');
-        CKEDITOR.replace('content-1');
+    CKEDITOR.replace('content');
+    CKEDITOR.replace('content-1');
     </script>
 </body>
 

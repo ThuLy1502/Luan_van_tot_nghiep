@@ -8,6 +8,7 @@ use App\Http\Services\Menus\MenuService;
 use App\Http\Services\Publishers\PublisherService;
 use App\Http\Services\Authors\AuthorService;
 use App\Http\Services\Books\BookService;
+use App\Http\Services\News\NewService;
 
 class MainController extends Controller
 {
@@ -15,13 +16,15 @@ class MainController extends Controller
     protected $publisherService;
     protected $authorService;
     protected $bookService;
+    protected $newService;
 
-    public function __construct(MenuService $menuService, PublisherService $publisherService, AuthorService $authorService, BookService $bookService)
+    public function __construct(MenuService $menuService, PublisherService $publisherService, AuthorService $authorService, BookService $bookService, NewService $newService)
     {
         $this->menuService = $menuService;
         $this->publisherService = $publisherService;
         $this->authorService = $authorService;
         $this->bookService = $bookService;
+        $this->newService = $newService;
     }
 
     public function index()
@@ -32,7 +35,8 @@ class MainController extends Controller
             'menus_parent_id' => $this->menuService->showParentId(),
             'publishers' => $this->publisherService->show(),
             'authors' => $this->authorService->show(),
-            'books' => $this->bookService->getAll()
+            'books' => $this->bookService->getAll(),
+            'news' => $this->newService->show()
         ]);
     }
 

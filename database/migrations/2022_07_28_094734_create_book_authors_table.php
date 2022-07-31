@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('new.phps', function (Blueprint $table) {
-            $table->id();
+        Schema::create('book_authors', function (Blueprint $table) {
+            $table->integer('book_id')->unsigned();
+            $table->integer('author_id')->unsigned();
             $table->timestamps();
+        
+            $table->primary(['book_id', 'author_id']);
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('new.phps');
+        Schema::dropIfExists('book_authors');
     }
 };

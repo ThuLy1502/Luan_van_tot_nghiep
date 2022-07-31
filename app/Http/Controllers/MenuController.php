@@ -62,7 +62,21 @@ class MenuController extends Controller
     public function destroy(Menu $menu)
     {
         $this->auth();
-        $result = $this->menuService->destroy($menu);
+        $books = $this->menuService->getBook($menu);
+        $menus = $this->menuService->getChildren($menu);
+
+        // dd($menus)
+
+        if (count($books) == 0) {
+            $result = $this->menuService->destroy($menu);
+            // Session::flash('error', 'Danh mục không có!');
+        } 
+        // else if (count($menus) != 0) {
+        //     Session::flash('error', 'Danh mục đã có danh mục con. Không xóa được!');
+        // } 
+        else {
+            Session::flash('error', 'Danh mục đã có sách. Không xóa được!');
+        }
 
         return redirect('/admin/menus/all');
     }

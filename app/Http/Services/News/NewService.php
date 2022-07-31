@@ -109,6 +109,14 @@ class NewService
     }
 
     // User Page
+    public function show()
+    {
+        return News::select('new_id', 'new_title', 'new_description', 'new_thumb', 'updated_at')
+            ->where('new_active', 1)
+            ->orderbyDesc('new_id')
+            ->paginate(4);
+    }
+
     public function get()
     {
         return News::select('new_id', 'new_title', 'new_description', 'new_thumb', 'updated_at')

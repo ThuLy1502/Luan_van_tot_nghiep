@@ -14,9 +14,17 @@ class MenuService
         return Menu::where('menu_parent_id', 0)->get();
     }
 
+    // Lấy danh mục con theo id cha
+    public function getChildren($menu)
+    {
+        return Menu::select('menu_id')
+            ->where('menu_parent_id', $menu)
+            ->get();
+    }
+
     public function getAll()
     {
-        return Menu::orderbyDesc('menu_id')->paginate(10);
+        return Menu::orderbyDesc('menu_id')->paginate(12);
     }
 
     public function create($request)

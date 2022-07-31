@@ -6,8 +6,16 @@
         <!-- Shopping items content -->
         <div class="shopping-content">
             <!-- Block heading two -->
+            <?php $dem = 0; ?>
+            @foreach($books as $book)
+            <?php $dem ++; ?>
+            @endforeach
             <div class="block-heading-two text-center">
-                <h3><span> Tìm kiếm </span></h3>
+                <h3><span> KẾT QUẢ TÌM KIẾM </span></h3>
+            </div>
+            <div class="text-center">
+                <h3 style="font-size: 20px;"> Có <span style="color: red;"> <?php echo $dem ?> </span> kết quả đáp ứng với từ khóa <span
+                        style="color: red;"> {{ $keyword }} </span></h3>
             </div>
             <div class="row">
                 @foreach($books as $book)

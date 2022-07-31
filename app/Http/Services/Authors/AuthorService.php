@@ -64,17 +64,19 @@ class AuthorService
             $data['updated_at'] = Carbon::now();
             $get_thumb = $request->file('author_thumb');
             
-            // Xóa link hình cũ khi cập nhật hình mới
-            $destinationPath = 'storage/app/public/uploads-author/' . $author->author_thumb;
-            if (file_exists($destinationPath)) {
-                unlink($destinationPath);
-            }
+            if ($get_thumb) {
+                // Xóa link hình cũ khi cập nhật hình mới
+                $destinationPath = 'storage/app/public/uploads-author/' . $author->author_thumb;
+                if (file_exists($destinationPath)) {
+                    unlink($destinationPath);
+                }
 
-            $get_name_thumb = $get_thumb->getClientOriginalName();
-            $name_thumb = current(explode('.', $get_name_thumb));
-            $new_thumb = $name_thumb . rand(0, 999) . '.' . $get_thumb->getClientOriginalExtension();
-            $get_thumb->move('storage\app\public\uploads-author', $new_thumb);
-            $data['author_thumb'] = $new_thumb;
+                $get_name_thumb = $get_thumb->getClientOriginalName();
+                $name_thumb = current(explode('.', $get_name_thumb));
+                $new_thumb = $name_thumb . rand(0, 999) . '.' . $get_thumb->getClientOriginalExtension();
+                $get_thumb->move('storage\app\public\uploads-author', $new_thumb);
+                $data['author_thumb'] = $new_thumb;
+            }
 
             DB::table('authors')
                 ->where('author_id', $author->author_id)
@@ -132,11 +134,13 @@ class AuthorService
 
     public function getBook($author_id)
     {
-        // books(): hasMany trong Author Model
-        return $author_id->books()
-            ->select('book_id', 'book_name', 'book_price_sale', 'book_thumb')
-            ->where('book_active', 1)
-            ->orderbyDesc('book_id')
-            ->paginate(8);
+        return DB::table('book_authors')
+            ->join('books', 'book_authors.book_id', '=', 'books.book_id')
+            ->join('authors', 'book_authors.author_id', '=', 'authors.author_id')
+            ->select('books.book_id', 'books.book_name', 'books.book_price_sale', 'books.book_thumb')
+            ->where('authors.author_id', $author_id)
+            ->distinct('books.book_id')
+            ->orderbyDesc('books.book_id')
+            ->get();
     }
 }

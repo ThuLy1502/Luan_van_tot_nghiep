@@ -45,9 +45,8 @@ class Book extends Model
             ->withDefault(['publisher_name' => '']);
     }
 
-    public function author()
+    public function book_authors()
     {
-        return $this->hasOne(Author::class, 'author_id', 'author_id')
-            ->withDefault(['author_name' => '']);
+        return $this->hasMany(Book_Author::class, 'book_id', 'book_id');
     }
 }

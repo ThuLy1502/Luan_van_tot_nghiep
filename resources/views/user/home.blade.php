@@ -127,13 +127,60 @@
                 <div class="col-md-3 col-sm-6">
                     <!-- Shopping items -->
                     <div class="shopping-item">
-                        <!-- Image -->
-                        <a href="{{URL('sach/'.$book->book_id. '.html')}}"><img class="img-responsive"
-                                src="{{URL('storage/app/public/uploads-book/'.$book->book_thumb)}}" alt="" width="90"
-                                height="120" /></a>
+
+                        <form>
+                            @csrf
+                            <!-- Image -->
+                            <a href="#" id="{{ $book->book_id }}" class="xemnhanh" data-toggle="modal"
+                                data-target="#exampleModalCenter"><img class="img-responsive"
+                                    src="{{URL('storage/app/public/uploads-book/'.$book->book_thumb)}}" alt=""
+                                    width="90" height="120" /></a>
+
+                            <!-- Modal -->
+                            <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1"
+                                role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <a href="#"><img class="img-responsive"
+                                                                src="{{URL('storage/app/public/uploads-book/'.$book->book_thumb)}}"
+                                                                alt="" width="160" height="200" /></a>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <h3 style="color: #32c8de;" id="book_name"></h3>
+                                                        <div> Khổ sách: <span style="font-weight: bold; line-height: 1.8;" id="book_format"></span> cm.</div>
+                                                        <div> Số trang: <span style="font-weight: bold; line-height: 1.8;" id="book_pages"></span> trang.</div>
+                                                        <div> Trọng lượng: <span style="font-weight: bold; line-height: 1.8;" id="book_weight"></span> g.</div>
+                                                        <div> Năm xuất bản: <span style="font-weight: bold; line-height: 1.8;" id="book_publishing_year"></span>.</div>
+                                                        <div style="font-weight: bold; line-height: 1.8;"> Giới thiệu tóm tắt: </div>
+                                                        <div id="book_description"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal"> Đóng </button>
+                                            <a href="{{URL('sach/'.$book->book_id. '.html')}}" class="btn btn-primary"> Xem chi tiết </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
                         <!-- Shopping item name / Heading -->
-                        <h4 class="name-style"><a href="{{URL('sach/'.$book->book_id. '.html')}}">{{ $book->book_name }}</a><span
-                                class="color pull-right">{{ number_format($book->book_price_sale) . ' VNĐ' }}</span>
+                        <h4 class="name-style"><a href="{{URL('sach/'.$book->book_id. '.html')}}">
+                                {{ $book->book_name }} </a><span class="color pull-right">
+                                {{ number_format($book->book_price_sale) . ' VNĐ' }} </span>
                         </h4>
                         <div class="clearfix"></div>
                         <!-- Buy now button -->
@@ -208,126 +255,41 @@
     </div>
 </section>
 
-<!-- Recent items Ends -->
-
-
-<div class="bt-block-home-parallax" style="background-image: url(img/resource/parallax2.jpg);">
+<section id="popular-product" class="ecommerce">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="lookbook-product">
-                    <h2><a href="#" title="">Collection 2016 </a></h2>
-                    <ul class="simple-cat-style">
-                        <li><a href="#" title="">Dresses</a></li>
-                        <li><a href="#" title="">Coats & Jackets</a></li>
-                        <li><a href="#" title="">Jeans</a></li>
-                    </ul>
-                    <a href="#" title="">Xem thêm</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div><!-- /.bt-block-home-parallax -->
+        <!-- Shopping items content -->
+        <div class="shopping-content">
 
-<!-- Start Our Clients -->
-
-<section id="Clients" class="light-wrapper">
-    <div class="container inner">
-        <div class="row">
-            <div class="Last-items-shop col-md-3 col-sm-6">
-
-                <!-- Block heading two -->
-                <div class="block-heading-two block-heading-three">
-                    <h3><span>Tin tức</span></h3>
-                </div>
-                <!--<div class="Top-Title-SideBar">
-						<h3>Special Offer</h3>
-					</div>-->
-                <div class="Last-post">
-                    <ul class="shop-res-items">
-                        <li>
-                            <a href="#"><img src="img/small/56.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 1</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                        <li>
-                            <a href="#"><img src="img/small/57.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 2</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="Last-items-shop col-md-3 col-sm-6">
-                <!-- Block heading two -->
-                <div class="block-heading-two block-heading-three">
-                    <h3><span> &nbsp; </span></h3>
-                </div>
-                <!--<div class="Top-Title-SideBar">
-						<h3>Best Sellers</h3>
-					</div>-->
-                <div class="Last-post">
-                    <ul class="shop-res-items">
-                        <li>
-                            <a href="#"><img src="img/small/56.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 3</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                        <li>
-                            <a href="#"><img src="img/small/57.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 4</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="Last-items-shop col-md-3 col-sm-6">
-                <!-- Block heading two -->
-                <div class="block-heading-two block-heading-three">
-                    <h3><span> &nbsp;</span></h3>
-                </div>
-                <!--<div class="Top-Title-SideBar">
-						<h3>Featured</h3>
-					</div>-->
-                <div class="Last-post">
-                    <ul class="shop-res-items">
-                        <li>
-                            <a href="#"><img src="img/small/56.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 5</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                        <li>
-                            <a href="#"><img src="img/small/57.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 6</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="Last-items-shop col-md-3 col-sm-6">
-                <!-- Block heading two -->
-                <div class="block-heading-two block-heading-three">
-                    <h3><span> &nbsp; </span></h3>
-                </div>
-                <!--<div class="Top-Title-SideBar">
-						<h3>Sales</h3>
-					</div>-->
-                <div class="Last-post">
-                    <ul class="shop-res-items">
-                        <li>
-                            <a href="#"><img src="img/small/56.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 7</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                        <li>
-                            <a href="#"><img src="img/small/57.jpg" alt=""></a>
-                            <h6><a href="#">Tin tức số 8</a></h6>
-                            <span class="sale-date">Hot</span>
-                        </li>
-                    </ul>
-                </div>
+            <!-- Block heading two -->
+            <div class="block-heading-two">
+                <h3><span> Tin tức </span></h3>
             </div>
 
+            <div class="row">
+                @foreach($news as $key => $new)
+                <div class="col-md-3 col-sm-6">
+                    <!-- Shopping items -->
+                    <div class="shopping-item" style="height: auto;">
+                        <!-- Image -->
+                        <a href="{{URL('tin-tuc/' . $new->new_id . '.html')}}"><img class="img-responsive"
+                                src="{{URL('storage/app/public/uploads-new/'.$new->new_thumb)}}" class="img-responsive"
+                                width="100%" height="150" alt="" /></a>
+                        <!-- Shopping item name / Heading -->
+                        <h4><a href="{{URL('tin-tuc/' . $new->new_id . '.html')}}"> Tiêu đề: {{ $new->new_title}} </a>
+                        </h4>
+                        <div class="clearfix"></div>
+                        <!-- Shopping item hover block & link -->
+                        <div class="item-hover bg-color hidden-xs">
+                            <a href="{{URL('tin-tuc/' . $new->new_id . '.html')}}"> Xem thêm </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <!-- Pagination -->
+            <div style="padding: 20px;">
+            </div>
+            <!-- Pagination end-->
         </div>
     </div>
 </section>

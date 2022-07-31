@@ -7,6 +7,7 @@ use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\MainController;
 
 // Admin login
@@ -98,6 +99,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/destroy/{book}', [BookController::class, 'destroy']);
     });
 
+    // Upload
+    Route::post('/upload/services', [UploadController::class, 'store']);
+
 });
 
 
@@ -105,6 +109,7 @@ Route::prefix('admin')->group(function () {
 // Home Page
 Route::get('/', [MainController::class, 'index']);
 Route::get('/trang-chu.html', [MainController::class, 'index']);
+
 
 // Contact Page
 Route::get('/lien-he.html', [MainController::class, 'contact']);
@@ -116,6 +121,7 @@ Route::get('/gioi-thieu.html', [MainController::class, 'about']);
 
 // Books
 Route::get('tu-sach.html', [BookController::class, 'showAll']);
+Route::post('/xem-nhanh', [BookController::class, 'quickView']);
 Route::get('sach/{id}.html', [BookController::class, 'showBook']);
 Route::get('/tim-kiem', [BookController::class, 'search']);
 

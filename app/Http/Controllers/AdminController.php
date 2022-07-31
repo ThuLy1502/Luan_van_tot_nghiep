@@ -41,7 +41,7 @@ class AdminController extends Controller
     {
         $this->auth();
         return view('admin.home', [
-            'title' => "TRANG ADMIN"
+            'title' => "Trang Admin"
         ]);
     }
 

@@ -25,8 +25,9 @@ function removeRow(id, url) {
 }
 
 
-/*Upload File */
+/*upload File */
 $('#upload').change(function () {
+    // console.log(123);
     const form = new FormData();
     form.append('file', $(this)[0].files[0]);
 
@@ -44,7 +45,7 @@ $('#upload').change(function () {
 
                 $('#thumb').val(results.url);
             } else {
-                alert('Upload File Lỗi');
+                alert('upload File Lỗi');
             }
         }
     });

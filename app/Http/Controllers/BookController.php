@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Books\CreateFormRequest;
+use App\Http\Requests\Books\UpdateFormRequest;
 use App\Http\Services\Books\BookService;
 use App\Models\Book;
 
@@ -44,6 +45,7 @@ class BookController extends Controller
         $this->auth();
         return view('admin.books.all', [
             'title' => 'Danh sách Sách',
+            'authors' => $this->bookService->getBook_Authors(),
             'books' => $this->bookService->get()
         ]);
     }
@@ -74,12 +76,12 @@ class BookController extends Controller
             'title' => 'Cập nhật Sách',
             'menus' => $this->bookService->getMenu(),
             'publishers' => $this->bookService->getPublisher(),
-            'authors' => $this->bookService->getAuthor(),
+            'authors' => $this->bookService->getBook_Authors(),
             'books' => $book
         ]);
     }
 
-    public function update(Request $request, Book $book)
+    public function update(UpdateFormRequest $request, Book $book)
     {
         $this->auth();
         $result = $this->bookService->update($request, $book);
@@ -111,10 +113,19 @@ class BookController extends Controller
         ]);
     }
 
+    // Xem sách nhanh bằng modal
+    public function quickView(Request $request)
+    {
+        $result = $this->bookService->quickView($request);
+
+        echo json_encode($result);
+    }
+
     // Trang chi tiết sách
     public function showBook($id) {
         $book = $this->bookService->show($id);
         $menu_id = $book->menu_id;
+        $authors_of_book = $this->bookService->getBookById($id);
         $books = $this->bookService->showBookRelated($id, $menu_id);
 
         return view('user.books.content', [
@@ -122,6 +133,7 @@ class BookController extends Controller
             'menus' => $this->menuService->show(),
             'publishers' => $this->publisherService->show(),
             'books' => $books,
+            'authors' => $authors_of_book,
             'book' => $book
         ]);
     }
@@ -135,6 +147,7 @@ class BookController extends Controller
             'title' => ' Book Website',
             'menus' => $this->menuService->show(),
             'publishers' => $this->publisherService->show(),
+            'keyword' => $keyword,
             'books' => $books
         ]);
     }

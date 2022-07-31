@@ -16,17 +16,18 @@
                 </div>
                 <div class="form-group">
                     <label>Hình sách</label>
-                    <input type="file" name="book_thumb" class="form-control">
+                    <input type="file" name="book_thumb" id="upload" class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleSelectGender"> Tác giả </label>
-                    <select class="form-control" name="author_id">
+                    <select class="form-control" name="author_id[]" multiple>
                         @foreach($authors as $author)
                         <option value="{{ $author->author_id }}">{{ $author->author_name }}</option>
                         @endforeach
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="exampleSelectGender"> Danh mục </label>
                     <select class="form-control" name="menu_id">
@@ -67,7 +68,8 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputName1"> Năm xuất bản </label>
-                    <input type="number" min=0 class="form-control" name="book_publishing_year" placeholder="Năm xuất bản">
+                    <input type="number" min=0 class="form-control" name="book_publishing_year"
+                        placeholder="Năm xuất bản">
                 </div>
 
                 <div class="form-group">

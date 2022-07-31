@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\News\CreateFormRequest;
+use App\Http\Requests\News\UpdateFormRequest;
 use App\Http\Services\News\NewService;
 use App\Models\News;
 
@@ -70,7 +71,7 @@ class NewController extends Controller
         ]);
     }
 
-    public function update(Request $request, News $new)
+    public function update(UpdateFormRequest $request, News $new)
     {
         $this->auth();
         $this->newService->update($request, $new);

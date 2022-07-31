@@ -60,7 +60,14 @@ class PublisherController extends Controller
     public function destroy(Publisher $publisher)
     {
         $this->auth();
-        $result = $this->publisherService->destroy($publisher);
+        $books = $this->publisherService->getBook($publisher);
+
+        if (count($books) == 0) {
+            $result = $this->publisherService->destroy($publisher);
+            // Session::flash('error', 'NXB không có!');
+        } else {
+            Session::flash('error', 'Nhà xuất bản đã có sách. Không xóa được!');
+        }
 
         return redirect('/admin/publishers/all');
     }

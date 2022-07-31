@@ -5,6 +5,7 @@ use App\Models\Book;
 use App\Models\Menu;
 use App\Models\Publisher;
 use App\Models\Author;
+use App\Models\Book_Author;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -66,7 +67,6 @@ class BookService
     
             $data['menu_id'] = $request->menu_id;
             $data['publisher_id'] = $request->publisher_id;
-            $data['author_id'] = $request->author_id;
     
             $data['book_active'] = $request->book_active;
             $data['created_at'] = Carbon::now();
@@ -78,9 +78,21 @@ class BookService
             $new_thumb = $name_thumb . '_' . strtotime(date('Y-m-d H:i:s')) . '.' . $get_thumb->getClientOriginalExtension();
             $get_thumb->move('storage\app\public\uploads-book', $new_thumb);
             $data['book_thumb'] = $new_thumb;
-    
-            DB::table('books')
-                ->insert($data);
+
+            // insertGetId: lấy luôn dữ liệu vừa mới insert
+            $book_id = DB::table('books')->insertGetId($data);
+
+            // Thêm Book_Author
+            $sach_tacgia = $request->author_id;
+            foreach ($sach_tacgia as $value) {
+                $data_sach_tacgia['book_id'] = $book_id;
+                $data_sach_tacgia['author_id'] = $value;
+                $data_sach_tacgia['created_at'] = Carbon::now();
+                $data_sach_tacgia['updated_at'] = Carbon::now();
+
+                DB::table('book_authors')
+                    ->insert($data_sach_tacgia);
+            }
 
             Session::flash('success', 'Thêm Sách thành công');
         } catch (\Exception $err) {
@@ -96,8 +108,18 @@ class BookService
     // Lấy tất cả Sách
     public function get()
     {
-        return Book::with('menu')->with('publisher')->with('author')
-            ->orderByDesc('book_id')->paginate(8);
+        return Book::with('menu')->with('publisher')
+            ->orderByDesc('book_id')
+            ->paginate(8);
+    }
+
+    public function getBook_Authors()
+    {
+        return DB::table('book_authors')
+            ->join('books', 'book_authors.book_id', '=', 'books.book_id')
+            ->join('authors', 'book_authors.author_id', '=', 'authors.author_id')
+            ->select('books.*', 'book_authors.book_id', 'authors.author_id', 'authors.author_name')
+            ->get();
     }
 
     public function update($request, $book): bool
@@ -120,23 +142,25 @@ class BookService
     
             $data['menu_id'] = $request->menu_id;
             $data['publisher_id'] = $request->publisher_id;
-            $data['author_id'] = $request->author_id;
+            // $data['author_id'] = $request->author_id;
     
             $data['book_active'] = $request->book_active;
             $data['updated_at'] = Carbon::now();
             $get_thumb = $request->file('book_thumb');
 
-            $destinationPath = 'storage/app/public/uploads-book/' . $book->book_thumb;
-            if (file_exists($destinationPath)) {
-                unlink($destinationPath);
+            if ($get_thumb) {
+                $destinationPath = 'storage/app/public/uploads-book/' . $book->book_thumb;
+                if (file_exists($destinationPath)) {
+                    unlink($destinationPath);
+                }
+
+                $get_name_thumb = $get_thumb->getClientOriginalName();
+                $name_thumb = current(explode('.', $get_name_thumb));
+                $new_thumb = $name_thumb . '_' . strtotime(date('Y-m-d H:i:s')) . '.' . $get_thumb->getClientOriginalExtension();
+                $get_thumb->move('storage\app\public\uploads-book', $new_thumb);
+                $data['book_thumb'] = $new_thumb;
             }
-    
-            $get_name_thumb = $get_thumb->getClientOriginalName();
-            $name_thumb = current(explode('.', $get_name_thumb));
-            $new_thumb = $name_thumb . '_' . strtotime(date('Y-m-d H:i:s')) . '.' . $get_thumb->getClientOriginalExtension();
-            $get_thumb->move('storage\app\public\uploads-book', $new_thumb);
-            $data['book_thumb'] = $new_thumb;
-    
+
             DB::table('books')
                 ->where('book_id', $book->book_id)
                 ->update($data);
@@ -180,35 +204,49 @@ class BookService
     public function getAll()
     {
         return Book::select('book_id', 'book_name', 'book_price_sale', 'book_thumb')
-        ->where('book_active', 1)
-        ->orderbyDesc('book_id')
-        ->paginate(8);
+            ->where('book_active', 1)
+            ->orderbyDesc('book_id')
+            ->paginate(8);
     }
 
     public function show($id)
     {
         return Book::where('book_id', $id)
-        ->where('book_active', 1)
-        ->with('menu')
-        ->with('publisher')
-        ->with('author')
-        ->firstOrFail();
+            ->where('book_active', 1)
+            ->with('menu')
+            ->with('publisher')
+            ->firstOrFail();
+    }
+
+    public function getBookById($id)
+    {
+        return DB::table('book_authors')
+            ->join('books', 'book_authors.book_id', '=', 'books.book_id')
+            ->join('authors', 'book_authors.author_id', '=', 'authors.author_id')
+            ->select('authors.author_id', 'authors.author_name')
+            ->where('books.book_id', $id)
+            ->get();
     }
 
     public function showBookRelated($id, $menu_id) {
         return Book::select('book_id', 'book_name', 'book_price_sale', 'book_thumb')
-        ->where('menu_id', $menu_id)
-        ->where('book_id', '!=', $id)
-        ->where('book_active', 1)
-        ->orderbyDesc('book_id')
-        ->get();
+            ->where('menu_id', $menu_id)
+            ->where('book_id', '!=', $id)
+            ->where('book_active', 1)
+            ->orderbyDesc('book_id')
+            ->get();
     }
 
     public function search($keyword) {
-        return Book::select('book_id', 'book_name', 'book_price_sale', 'book_thumb')
-        ->where('book_name', 'LIKE', '%' . $keyword . '%')
-        ->where('book_active', 1)
-        ->paginate(8);
+        return DB::table('book_authors')
+            ->join('books', 'book_authors.book_id', '=', 'books.book_id')
+            ->join('authors', 'book_authors.author_id', '=', 'authors.author_id')
+            ->select('books.book_id', 'books.book_name', 'books.book_price_sale', 'books.book_thumb')
+            ->where('books.book_name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('authors.author_name', 'LIKE', '%' . $keyword . '%')
+            ->where('book_active', 1)
+            ->distinct('books.book_id')
+            ->paginate(8);
     }
 
     // public function showBookAjax($data) {
@@ -217,4 +255,32 @@ class BookService
     //     ->where('book_name', 1)
     //     ->get();
     // }
+
+    // Xem sách bằng modal
+    public function quickView($request)
+    {
+        $book_id = $request->book_id;
+
+        $output['author_name'] = DB::table('book_authors')
+        ->join('books', 'book_authors.book_id', '=', 'books.book_id')
+        ->join('authors', 'book_authors.author_id', '=', 'authors.author_id')
+        ->select('authors.author_name')
+        ->where('books.book_id', $book_id)
+        ->distinct('books.book_id')
+        ->get();
+
+        $book = Book::find($book_id);
+
+        $output['book_thumb'] = $book->book_thumb;
+        $output['book_name'] = $book->book_name;
+        $output['book_description'] = $book->book_description;
+
+        $output['book_format'] = $book->book_format;
+        $output['book_pages'] = $book->book_pages;
+        $output['book_weight'] = $book->book_weight;
+        $output['book_publishing_year'] = $book->book_publishing_year;
+        $output['book_price_sale'] = $book->book_price_sale;
+
+        return $output;
+    }
 }

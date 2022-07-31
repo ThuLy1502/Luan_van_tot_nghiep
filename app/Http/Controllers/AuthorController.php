@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Authors\CreateFormRequest;
-
 use App\Http\Requests\Authors\UpdateFormRequest;
 
 use App\Http\Services\Authors\AuthorService;
@@ -74,7 +73,7 @@ class AuthorController extends Controller
         ]);
     }
 
-    public function update(Request $request, Author $author)
+    public function update(UpdateFormRequest $request, Author $author)
     {
         $this->auth();
         $this->authorService->update($request, $author);
@@ -85,7 +84,14 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         $this->auth();
-        $result = $this->authorService->destroy($author);
+        $books = $this->authorService->getBook($author);
+
+        if (count($books) == 0) {
+            $result = $this->authorService->destroy($author);
+            // Session::flash('error', 'NXB không có!');
+        } else {
+            Session::flash('error', 'Tác giả đã có sách. Không xóa được!');
+        }
 
         return redirect('/admin/authors/all');
     }
@@ -106,7 +112,7 @@ class AuthorController extends Controller
     // Trang chi tiết tác giả
     public function showAuthor($id) {
         $author = $this->authorService->getId($id);
-        $books = $this->authorService->getBook($author);
+        $books = $this->authorService->getBook($id);
 
         return view('user.authors.content', [
             'title' => $author->author_name,
