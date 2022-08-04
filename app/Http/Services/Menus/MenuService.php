@@ -27,6 +27,11 @@ class MenuService
         return Menu::orderbyDesc('menu_id')->paginate(12);
     }
 
+    // Đếm số lượng Danh mục
+    public function count() {
+        return Menu::select('menu_id')->count();
+    }
+
     public function create($request)
     {
         try {

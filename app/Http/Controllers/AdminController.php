@@ -7,15 +7,34 @@ use App\Http\Requests\Admin\CreateFormRequest;
 use App\Http\Services\Admin\AdminService;
 use App\Models\Admin;
 
+use App\Http\Services\Menus\MenuService;
+use App\Http\Services\Publishers\PublisherService;
+use App\Http\Services\Authors\AuthorService;
+use App\Http\Services\Books\BookService;
+use App\Http\Services\News\NewService;
+
 use Session;
 
 class AdminController extends Controller
 {
     protected $adminService;
 
-    public function __construct(AdminService $adminService)
+    protected $menuService;
+    protected $publisherService;
+    protected $authorService;
+    protected $bookService;
+    protected $newService;
+
+    public function __construct(AdminService $adminService, MenuService $menuService, PublisherService $publisherService, 
+                                AuthorService $authorService, BookService $bookService, NewService $newService)
     {
         $this->adminService = $adminService;
+
+        $this->menuService = $menuService;
+        $this->publisherService = $publisherService;
+        $this->authorService = $authorService;
+        $this->bookService = $bookService;
+        $this->newService = $newService;
     }
 
     public function index()
@@ -41,6 +60,11 @@ class AdminController extends Controller
     {
         $this->auth();
         return view('admin.home', [
+            'menus' => $this->menuService->count(),
+            'publishers' => $this->publisherService->count(),
+            'authors' => $this->authorService->count(),
+            'books' => $this->bookService->count(),
+            'news' => $this->newService->count(),
             'title' => "Trang Admin"
         ]);
     }

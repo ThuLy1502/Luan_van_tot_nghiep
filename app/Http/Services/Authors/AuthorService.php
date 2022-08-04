@@ -54,6 +54,11 @@ class AuthorService
         return Author::orderbyDesc('author_id')->paginate(8);
     }
 
+    // Đếm số lượng Tác Giả
+    public function count() {
+        return Author::select('author_id')->count();
+    }
+
     public function update($request, $author): bool
     {
         try {

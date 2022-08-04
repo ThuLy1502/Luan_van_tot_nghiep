@@ -33,6 +33,7 @@ class MenuController extends Controller
         }
     }
 
+
     public function create()
     {
         $this->auth();

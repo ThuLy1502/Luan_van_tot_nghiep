@@ -27,7 +27,7 @@
                         <div class="clearfix"></div>
                         <!-- Shopping item hover block & link -->
                         <div class="item-hover bg-color hidden-xs">
-                            <a href="{{URL('sach/'.$author->author_id. '.html')}}"> Chi tiết </a>
+                            <a href="{{URL('tac-gia/'.$author->author_id. '.html')}}"> Chi tiết </a>
                         </div>
                     </div>
                 </div>

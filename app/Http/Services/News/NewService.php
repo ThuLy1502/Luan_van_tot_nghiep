@@ -46,6 +46,11 @@ class NewService
         return News::orderbyDesc('new_id')->paginate(4);
     }
 
+    // Đếm số lượng Tin Tức
+    public function count() {
+        return News::select('new_id')->count();
+    }
+
     public function update($request, $new): bool
     {
         try {

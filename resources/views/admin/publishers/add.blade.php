@@ -4,7 +4,7 @@
 <div class="col-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Thêm Nhà Xuất Bản Mới</h4>
+            <h4 class="card-title">Thêm NXB Mới</h4>
 
             @include('admin.alert')
             <form class="forms-sample" action="{{URL::to('/admin/publishers/add')}}" method="POST">

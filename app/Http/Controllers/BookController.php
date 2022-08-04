@@ -21,7 +21,7 @@ class BookController extends Controller
     protected $menuService;
     protected $authorService;
 
-    public function __construct(BookService $bookService, MenuService $menuService, PublisherService $publisherService, AuthorService $authorService,)
+    public function __construct(BookService $bookService, MenuService $menuService, PublisherService $publisherService, AuthorService $authorService)
     {
         $this->bookService = $bookService;
         $this->menuService = $menuService;
@@ -109,7 +109,7 @@ class BookController extends Controller
             'title' => 'Tủ Sách',
             'menus' => $this->menuService->show(),
             'publishers' => $this->publisherService->show(),
-            'books' => $this->bookService->getAll(),
+            'books' => $this->bookService->get12(),
         ]);
     }
 

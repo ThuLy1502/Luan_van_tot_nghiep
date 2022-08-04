@@ -32,6 +32,11 @@ class BookService
         return Author::where('author_active', 1)->get();
     }
 
+    // Đếm số lượng Sách
+    public function count() {
+        return Book::select('book_id')->count();
+    }
+
     // Hàm kiểm tra giá gốc >= giá giảm
     protected function isValidPrice($request) {
         if ($request->input('book_price') != 0 && $request->input('book_price_sale') != 0 
@@ -207,6 +212,14 @@ class BookService
             ->where('book_active', 1)
             ->orderbyDesc('book_id')
             ->paginate(8);
+    }
+
+    public function get12()
+    {
+        return Book::select('book_id', 'book_name', 'book_price_sale', 'book_thumb')
+            ->where('book_active', 1)
+            ->orderbyDesc('book_id')
+            ->paginate(12);
     }
 
     public function show($id)

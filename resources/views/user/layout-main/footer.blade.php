@@ -16,11 +16,9 @@
                     <div class="col-md-3 col-sm-4">
                         <h3 class="column-title"> Về chúng tôi </h3>
                         <ul class="column">
-                            <li><a href="{{URL('gioi-thieu.html')}}"> Giới Thiệu </a></li>
                             <li><a href="{{URL('tu-sach.html')}}"> Tủ Sách </a></li>
                             <li><a href="{{URL('tac-gia.html')}}"> Tác giả </a></li>
                             <li><a href="{{URL('tin-tuc.html')}}"> Tin Tức </a></li>
-                            <li><a href="{{URL('lien-he.html')}}"> Liên Hệ </a></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -36,7 +34,7 @@
                     <div class="clearfix visible-sm-block"></div>
                     <div class="col-md-3">
                         <div class="footer-description"> Một cuốn sách là một giấc mơ mà bạn cầm trong tay.</div>
-                        <img alt="" src="{{('public/users/img/My-Books-2.ico')}}" class="footer-logo">
+                        <img alt="" src="{{URL('public/users/img/My-Books-2.ico')}}" class="footer-logo">
                     </div>
                 </div>
             </div>

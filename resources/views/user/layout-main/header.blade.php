@@ -39,10 +39,6 @@
                     </li>
 
                     <li>
-                        <a href="{{URL('gioi-thieu.html')}}"> Giới Thiệu</a>
-                    </li>
-
-                    <li>
                         <a href="{{URL('tu-sach.html')}}"> Tủ Sách </a>
                     </li>
 
@@ -92,9 +88,6 @@
 
                     <li>
                         <a href="{{URL('tin-tuc.html')}}"> Tin Tức</a>
-                    </li>
-                    <li>
-                        <a href="{{URL('lien-he.html')}}"> Liên Hệ </a>
                     </li>
                 </ul>
             </div>

@@ -31,6 +31,11 @@ class PublisherService
         return Publisher::orderbyDesc('publisher_id')->paginate(10);
     }
 
+    // Đếm số lượng NXB
+    public function count() {
+        return Publisher::select('publisher_id')->count();
+    }
+
     public function destroy($publisher)
     {
         try {
