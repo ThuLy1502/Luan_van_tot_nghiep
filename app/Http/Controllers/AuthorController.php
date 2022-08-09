@@ -88,7 +88,6 @@ class AuthorController extends Controller
 
         if (count($books) == 0) {
             $result = $this->authorService->destroy($author);
-            // Session::flash('error', 'NXB không có!');
         } else {
             Session::flash('error', 'Tác giả đã có sách. Không xóa được!');
         }

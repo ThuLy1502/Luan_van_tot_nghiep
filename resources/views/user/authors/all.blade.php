@@ -44,27 +44,4 @@
         </div>
     </div>
 </section>
-
-<!-- <script type="text/javascript">
-$(document).on('click', '.xemtacgianhanh', function() {
-    var author_id = $(this).attr('id');
-    var _token = $('input[name="_token"]').val();
-
-    $.ajax({
-        url: '{{url('/xem-tac-gia-nhanh')}}',
-        method: "POST",
-        dataType: "JSON",
-        data: {
-            author_id: author_id,
-            _token: _token
-        },
-        success: function(data) {
-            $('#author_id').html(data.author_id);
-            $('#author_thumb').html(data.author_thumb);
-            $('#author_name').html(data.author_name);
-            $('#author_description').html(data.author_description);
-        }
-    });
-});
-</script> -->
 @endsection

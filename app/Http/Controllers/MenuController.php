@@ -65,18 +65,14 @@ class MenuController extends Controller
         $this->auth();
         $books = $this->menuService->getBook($menu);
         $menus = $this->menuService->getChildren($menu);
+        $menu_parent_id = $menu->menu_parent_id;
 
-        // dd($menus)
-
-        if (count($books) == 0) {
-            $result = $this->menuService->destroy($menu);
-            // Session::flash('error', 'Danh mục không có!');
-        } 
-        // else if (count($menus) != 0) {
-        //     Session::flash('error', 'Danh mục đã có danh mục con. Không xóa được!');
-        // } 
-        else {
+        if (count($books) != 0) {
             Session::flash('error', 'Danh mục đã có sách. Không xóa được!');
+        } else if (count($menus) != 0) {
+            Session::flash('error', 'Danh mục đã có danh mục con. Không xóa được!');
+        } else {
+            $result = $this->menuService->destroy($menu);
         }
 
         return redirect('/admin/menus/all');

@@ -137,34 +137,15 @@ class AuthorService
         return Author::where('author_id', $id)->where('author_active', 1)->firstOrFail();
     }
 
-    public function getBook($author_id)
+    public function getBook($author)
     {
         return DB::table('book_authors')
             ->join('books', 'book_authors.book_id', '=', 'books.book_id')
             ->join('authors', 'book_authors.author_id', '=', 'authors.author_id')
             ->select('books.book_id', 'books.book_name', 'books.book_price_sale', 'books.book_thumb')
-            ->where('authors.author_id', $author_id)
+            ->where('authors.author_id', $author->author_id)
             ->distinct('books.book_id')
             ->orderbyDesc('books.book_id')
             ->get();
     }
-
-       // Xem tác giả bằng modal
-    //    public function quickView($request)
-    //    {
-    //        $author_id = $request->author_id;
-   
-    //        $author = Author::find($author_id);
-   
-    //        $output['author_id'] = '<a href="tac-gia/'.$author->author_id. '.html" class="btn btn-primary"> Xem chi tiết </a>';
-    //        $output['author_thumb'] = '<div class="col-sm-3">
-    //        <a href="#"><img class="img-responsive"
-    //                src="storage/app/public/uploads-author/' . $author->author_thumb . '"
-    //                alt="" width="160" height="200" /></a>
-    //        </div>';
-    //        $output['author_name'] = $author->author_name;
-    //        $output['author_description'] = $author->author_description;
-   
-    //        return $output;
-    //    }
 }

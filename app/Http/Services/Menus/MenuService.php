@@ -18,7 +18,7 @@ class MenuService
     public function getChildren($menu)
     {
         return Menu::select('menu_id')
-            ->where('menu_parent_id', $menu)
+            ->where('menu_parent_id', $menu->menu_id)
             ->get();
     }
 

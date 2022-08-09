@@ -43,7 +43,7 @@ class NewService
 
     public function getAll()
     {
-        return News::orderbyDesc('new_id')->paginate(4);
+        return News::orderbyDesc('new_id')->paginate(6);
     }
 
     // Đếm số lượng Tin Tức
@@ -62,17 +62,19 @@ class NewService
             $data['updated_at'] = Carbon::now();
             $get_thumb = $request->file('new_thumb');
             
-            // Xóa thumb hình cũ khỏi uploads-new, cập nhật thumb hình mới
-            $destinationPath = 'storage/app/public/uploads-new/' . $new->new_thumb;
-            if (file_exists($destinationPath)) {
-                unlink($destinationPath);
+            if ($get_thumb) {
+                // Xóa thumb hình cũ khỏi uploads-new, cập nhật thumb hình mới
+                $destinationPath = 'storage/app/public/uploads-new/' . $new->new_thumb;
+                if (file_exists($destinationPath)) {
+                    unlink($destinationPath);
+                }
+        
+                $get_name_thumb = $get_thumb->getClientOriginalName();
+                $name_thumb = current(explode('.', $get_name_thumb));
+                $new_thumb = $name_thumb . '_' . strtotime(date('Y-m-d H:i:s')) . '.' . $get_thumb->getClientOriginalExtension();
+                $get_thumb->move('storage\app\public\uploads-new', $new_thumb);
+                $data['new_thumb'] = $new_thumb;
             }
-    
-            $get_name_thumb = $get_thumb->getClientOriginalName();
-            $name_thumb = current(explode('.', $get_name_thumb));
-            $new_thumb = $name_thumb . '_' . strtotime(date('Y-m-d H:i:s')) . '.' . $get_thumb->getClientOriginalExtension();
-            $get_thumb->move('storage\app\public\uploads-new', $new_thumb);
-            $data['new_thumb'] = $new_thumb;
     
             DB::table('news')
                 ->where('new_id', $new->new_id)

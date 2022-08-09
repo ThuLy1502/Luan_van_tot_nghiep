@@ -191,6 +191,10 @@ class BookService
                 ->where('book_id', $book->book_id)
                 ->delete();
 
+            DB::table('book_authors')
+            ->where('book_id', $book->book_id)
+            ->delete();
+
             Session::flash('success', 'Xóa Sách thành công');
 
         } catch (\Exception $err) {

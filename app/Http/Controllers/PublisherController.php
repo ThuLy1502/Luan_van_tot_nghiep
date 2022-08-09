@@ -64,7 +64,6 @@ class PublisherController extends Controller
 
         if (count($books) == 0) {
             $result = $this->publisherService->destroy($publisher);
-            // Session::flash('error', 'NXB không có!');
         } else {
             Session::flash('error', 'Nhà xuất bản đã có sách. Không xóa được!');
         }
