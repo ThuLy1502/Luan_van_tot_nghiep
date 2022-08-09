@@ -15,22 +15,21 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments('book_id');
-            $table->string('book_name');
-            $table->longText('book_description');
+            $table->string('book_name', 100);
+            $table->text('book_description');
 
-            $table->string('book_format');
+            $table->string('book_format', 10);
             $table->integer('book_pages');
-            $table->integer('book_weight');
+            $table->double('book_weight');
             $table->integer('book_publishing_year');
 
-            $table->integer('book_price')->nullable();
-            $table->integer('book_price_sale')->nullable();
+            $table->double('book_price');
+            $table->double('book_price_sale');
 
             $table->integer('menu_id');
             $table->integer('publisher_id');
-            $table->integer('author_id');
 
-            $table->string('book_thumb');
+            $table->string('book_thumb', 100);
             $table->integer('book_active');
             $table->timestamps();
         });

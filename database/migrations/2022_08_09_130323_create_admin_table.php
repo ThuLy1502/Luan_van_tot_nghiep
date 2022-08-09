@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('publishers', function (Blueprint $table) {
-            $table->increments('publisher_id');
-            $table->string('publisher_name', 255);
-            $table->longText('publisher_description')->nullable();
-            $table->integer('publisher_active');
+        Schema::create('admin', function (Blueprint $table) {
+            $table->increments('admin_id');
+            $table->string('admin_email', 30);
+            $table->string('admin_password', 30);
+            $table->string('admin_name', 100);
+            $table->string('admin_phone', 10);
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publishers');
+        Schema::dropIfExists('admin');
     }
 };

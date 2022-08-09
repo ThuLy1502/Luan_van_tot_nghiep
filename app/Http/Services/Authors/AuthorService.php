@@ -148,4 +148,23 @@ class AuthorService
             ->orderbyDesc('books.book_id')
             ->get();
     }
+
+       // Xem tác giả bằng modal
+    //    public function quickView($request)
+    //    {
+    //        $author_id = $request->author_id;
+   
+    //        $author = Author::find($author_id);
+   
+    //        $output['author_id'] = '<a href="tac-gia/'.$author->author_id. '.html" class="btn btn-primary"> Xem chi tiết </a>';
+    //        $output['author_thumb'] = '<div class="col-sm-3">
+    //        <a href="#"><img class="img-responsive"
+    //                src="storage/app/public/uploads-author/' . $author->author_thumb . '"
+    //                alt="" width="160" height="200" /></a>
+    //        </div>';
+    //        $output['author_name'] = $author->author_name;
+    //        $output['author_description'] = $author->author_description;
+   
+    //        return $output;
+    //    }
 }

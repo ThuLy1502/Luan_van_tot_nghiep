@@ -44,7 +44,7 @@
                         </label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mr-2"> Thêm tin tức</button>
+                <button type="submit" class="btn btn-primary mr-2"> Cập nhật tin tức</button>
             </form>
         </div>
     </div>

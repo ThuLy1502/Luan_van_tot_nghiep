@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Fav icon -->
-<link rel="shortcut icon" href="{{('public/users/img/My-Books-2.ico')}}">
+<link rel="shortcut icon" href="{{URL('public/users/img/My-Books-2.ico')}}">
 
 <!-- Font -->
 <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,900,700,700italic,300' rel='stylesheet'

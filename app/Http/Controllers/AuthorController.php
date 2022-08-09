@@ -109,6 +109,14 @@ class AuthorController extends Controller
         ]);
     }
 
+    // Xem tác giả nhanh bằng modal
+    public function quickView(Request $request)
+    {
+        $result = $this->authorService->quickView($request);
+
+        echo json_encode($result);
+    }
+
     // Trang chi tiết tác giả
     public function showAuthor($id) {
         $author = $this->authorService->getId($id);

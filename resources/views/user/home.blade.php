@@ -133,8 +133,8 @@
                             <!-- Image -->
                             <a href="#" id="{{ $book->book_id }}" class="xemnhanh" data-toggle="modal"
                                 data-target="#exampleModalCenter"><img class="img-responsive"
-                                    src="{{URL('storage/app/public/uploads-book/'.$book->book_thumb)}}" alt=""
-                                    width="90" height="120" /></a>
+                                    src="{{URL('storage/app/public/uploads-book/'.$book->book_thumb)}}" alt="sach"
+                                    width="135" height="175" /></a>
 
                             <!-- Modal -->
                             <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1"
@@ -142,7 +142,6 @@
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -150,38 +149,43 @@
                                         <div class="modal-body">
                                             <div class="container-fluid">
                                                 <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <a href="#"><img class="img-responsive"
-                                                                src="{{URL('storage/app/public/uploads-book/'.$book->book_thumb)}}"
-                                                                alt="" width="160" height="200" /></a>
-                                                    </div>
+                                                    <div id="book_thumb"></div>
                                                     <div class="col-sm-9">
                                                         <h3 style="color: #32c8de;" id="book_name"></h3>
-                                                        <div> Khổ sách: <span style="font-weight: bold; line-height: 1.8;" id="book_format"></span> cm.</div>
-                                                        <div> Số trang: <span style="font-weight: bold; line-height: 1.8;" id="book_pages"></span> trang.</div>
-                                                        <div> Trọng lượng: <span style="font-weight: bold; line-height: 1.8;" id="book_weight"></span> g.</div>
-                                                        <div> Năm xuất bản: <span style="font-weight: bold; line-height: 1.8;" id="book_publishing_year"></span>.</div>
-                                                        <div style="font-weight: bold; line-height: 1.8;"> Giới thiệu tóm tắt: </div>
+                                                        <div> Khổ sách: <span
+                                                                style="font-weight: bold; line-height: 1.8;"
+                                                                id="book_format"></span> cm.</div>
+                                                        <div> Số trang: <span
+                                                                style="font-weight: bold; line-height: 1.8;"
+                                                                id="book_pages"></span> trang.</div>
+                                                        <div> Trọng lượng: <span
+                                                                style="font-weight: bold; line-height: 1.8;"
+                                                                id="book_weight"></span> g.</div>
+                                                        <div> Năm xuất bản: <span
+                                                                style="font-weight: bold; line-height: 1.8;"
+                                                                id="book_publishing_year"></span>.</div>
+                                                        <div style="font-weight: bold; line-height: 1.8;"> Giới thiệu
+                                                            tóm tắt: </div>
                                                         <div id="book_description"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal"> Đóng </button>
-                                            <a href="{{URL('sach/'.$book->book_id. '.html')}}" class="btn btn-primary"> Xem chi tiết </a>
+                                            <div id="book_id"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </form>
+
                         <!-- Shopping item name / Heading -->
-                        <h4 class="name-style"><a href="{{URL('sach/'.$book->book_id. '.html')}}">
+                        <!-- <h4 class="name-style"><a href="{{URL('sach/'.$book->book_id. '.html')}}">
                                 {{ $book->book_name }} </a><span class="color pull-right">
                                 {{ number_format($book->book_price_sale) . ' VNĐ' }} </span>
-                        </h4>
+                        </h4> -->
+
+
                         <div class="clearfix"></div>
                         <!-- Buy now button -->
                         <div class="visible-xs">
@@ -230,9 +234,11 @@
                                     @foreach($authors as $key => $author)
                                     <div class="product  item first ">
                                         <article>
+                                            
+                                            <!-- Image -->
                                             <figure>
-                                                <a href="{{URL('tac-gia/'. $author->author_id . '.html')}}">
-                                                    <img src="{{URL('storage/app/public/uploads-author/' . $author->author_thumb)}} "
+                                                <a href="{{URL('tac-gia/'.$author->author_id. '.html')}}">
+                                                    <img src="{{URL('storage/app/public/uploads-author/' . $author->author_thumb)}}" height="220px" width="100%"
                                                         class="img-responsive " alt="tac-gia">
                                                 </a>
                                             </figure>

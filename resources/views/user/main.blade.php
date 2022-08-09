@@ -166,30 +166,35 @@
     </script>
 
     <script type="text/javascript">
-        $(document).on('click', '.xemnhanh', function() {
-            var book_id = $(this).attr('id');
-            var _token = $('input[name="_token"]').val();
+    $(document).on('click', '.xemnhanh', function() {
+        var book_id = $(this).attr('id');
+        var _token = $('input[name="_token"]').val();
 
-            $.ajax({
-                url:'{{url('/xem-nhanh')}}',
-                method: "POST",
-                dataType: "JSON",
-                data:{book_id:book_id,_token:_token},
-                success:function(data){
-                    $('#book_thumb').html(data.book_thumb);
-                    $('#book_name').html(data.book_name);
-                    $('#book_description').html(data.book_description);
+        $.ajax({
+            url: '{{url('/xem-sach-nhanh')}}',
+            method: "POST",
+            dataType: "JSON",
+            data: {
+                book_id: book_id,
+                _token: _token
+            },
+            success: function(data) {
+                $('#book_id').html(data.book_id);
+                $('#book_thumb').html(data.book_thumb);
+                $('#book_name').html(data.book_name);
+                $('#book_description').html(data.book_description);
 
-                    $('#book_format').html(data.book_format);
-                    $('#book_pages').html(data.book_pages);
-                    $('#book_weight').html(data.book_weight);
+                $('#book_format').html(data.book_format);
+                $('#book_pages').html(data.book_pages);
+                $('#book_weight').html(data.book_weight);
 
-                    $('#book_publishing_year').html(data.book_publishing_year);
-                    $('#book_price_sale').html(data.book_price_sale);
-                    $('#author_name').html(data.author_name);
-                }
-            });
+                $('#book_publishing_year').html(data.book_publishing_year);
+                $('#book_price_sale').html(data.book_price_sale);
+                $('#author_name').html(data.author_name);
+            }
         });
+    });
     </script>
 </body>
+
 </html>

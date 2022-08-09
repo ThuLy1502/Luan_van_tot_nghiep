@@ -24,7 +24,7 @@ class CreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'menu_name' => 'required|between:3,255',
+            'menu_name' => 'required|between:3,30',
             'menu_parent_id' => 'required',
             'menu_description' => 'required|min:10',
             'menu_active' => 'required'
@@ -35,7 +35,7 @@ class CreateFormRequest extends FormRequest
     {
         return [
             'menu_name.required' => 'Vui lòng nhập tên Danh Mục',
-            'menu_name.between' => 'Tên Danh Mục phải từ 3 đến 255 kí tự',
+            'menu_name.between' => 'Tên Danh Mục phải từ 3 đến 30 kí tự',
 
             'menu_parent_id.required' => 'Vui lòng chọn Danh mục cha',
 

@@ -284,7 +284,12 @@ class BookService
 
         $book = Book::find($book_id);
 
-        $output['book_thumb'] = $book->book_thumb;
+        $output['book_id'] = '<a href="http://localhost/book-website/sach/'.$book->book_id. '.html" class="btn btn-primary"> Xem chi tiết </a>';
+        $output['book_thumb'] = '<div class="col-sm-3">
+        <a href="#"><img class="img-responsive"
+                src="http://localhost/book-website/storage/app/public/uploads-book/' . $book->book_thumb . '" 
+                alt="sach" width="200" height="240" /></a>
+        </div>';
         $output['book_name'] = $book->book_name;
         $output['book_description'] = $book->book_description;
 

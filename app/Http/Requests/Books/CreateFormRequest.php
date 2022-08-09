@@ -27,7 +27,7 @@ class CreateFormRequest extends FormRequest
             'book_name' => 'required|between:3,255',
             'book_thumb' => 'bail|required|
                 image|mimes:jpeg,jpg,png,svg,gif|max:2048|
-                dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+                dimensions:min_width=100,min_height=100,max_width=1200,max_height=1200',
             
             'book_description' => 'required|min:20',
 

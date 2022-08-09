@@ -121,7 +121,7 @@ Route::get('/gioi-thieu.html', [MainController::class, 'about']);
 
 // Books
 Route::get('tu-sach.html', [BookController::class, 'showAll']);
-Route::post('/xem-nhanh', [BookController::class, 'quickView']);
+Route::post('/xem-sach-nhanh', [BookController::class, 'quickView']);
 Route::get('sach/{id}.html', [BookController::class, 'showBook']);
 Route::get('/tim-kiem', [BookController::class, 'search']);
 
@@ -138,6 +138,7 @@ Route::get('tin-tuc/{id}.html', [NewController::class, 'showNew']);
 
 // Authors
 Route::get('tac-gia.html', [AuthorController::class, 'showAll']);
+Route::post('/xem-tac-gia-nhanh', [AuthorController::class, 'quickView']);
 Route::get('tac-gia/{id}.html', [AuthorController::class, 'showAuthor']);
 
 

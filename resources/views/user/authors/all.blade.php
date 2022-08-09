@@ -16,10 +16,12 @@
                 <div class="col-md-3 col-sm-6">
                     <!-- Shopping items -->
                     <div class="shopping-item">
+
                         <!-- Image -->
                         <a href="{{URL('tac-gia/'.$author->author_id. '.html')}}"><img class="img-responsive"
                                 src="{{URL('storage/app/public/uploads-author/'.$author->author_thumb)}}" alt=""
                                 width="70%" height="150" /></a>
+
                         <!-- Shopping item name / Heading -->
                         <h4 class="name-style text-center"><a
                                 href="{{URL('tac-gia/'.$author->author_id. '.html')}}">{{ $author->author_name }}</a>
@@ -29,6 +31,7 @@
                         <div class="item-hover bg-color hidden-xs">
                             <a href="{{URL('tac-gia/'.$author->author_id. '.html')}}"> Chi tiết </a>
                         </div>
+
                     </div>
                 </div>
                 @endforeach
@@ -41,4 +44,27 @@
         </div>
     </div>
 </section>
+
+<!-- <script type="text/javascript">
+$(document).on('click', '.xemtacgianhanh', function() {
+    var author_id = $(this).attr('id');
+    var _token = $('input[name="_token"]').val();
+
+    $.ajax({
+        url: '{{url('/xem-tac-gia-nhanh')}}',
+        method: "POST",
+        dataType: "JSON",
+        data: {
+            author_id: author_id,
+            _token: _token
+        },
+        success: function(data) {
+            $('#author_id').html(data.author_id);
+            $('#author_thumb').html(data.author_thumb);
+            $('#author_name').html(data.author_name);
+            $('#author_description').html(data.author_description);
+        }
+    });
+});
+</script> -->
 @endsection

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('menu_id');
-            $table->string('menu_name', 255);
+            $table->string('menu_name', 30);
             $table->integer('menu_parent_id');
-            $table->longText('menu_description')->nullable();
+            $table->text('menu_description');
             $table->integer('menu_active');
             $table->timestamps();
         });

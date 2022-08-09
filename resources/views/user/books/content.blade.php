@@ -71,19 +71,15 @@
                             </div>
                         </div>
                         <!-- .summary -->
-
                     </div>
 
                     <div class="wrapper-description">
-
                         <ul class="tabs-nav clearfix">
                             <li class="active"> Tóm tắt nội dung </li>
                         </ul>
                         <div class="tabs-container product-comments">
-
                             <div class="tab-content">
                                 <section class="related-products">
-
                                     <p>
                                         {!! $book->book_description !!}
                                     </p>

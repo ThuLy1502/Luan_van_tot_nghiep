@@ -26,7 +26,7 @@
                                 <td class="text-center"><img
                                         src="{{URL('storage/app/public/uploads-book/'.$book->book_thumb)}}" height="100"
                                         width="100">
-                                <td> {{ $book->book_name }} </td>
+                                <td class="td-width"> {{ $book->book_name }} </td>
                                 <td>
                                     @foreach($authors as $author)
                                     <?php if ($book->book_id == $author->book_id) { ?>
